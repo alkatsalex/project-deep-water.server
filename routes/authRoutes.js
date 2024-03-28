@@ -1,6 +1,6 @@
 // НІЧОГО НЕ ЗМІНЮВАТИ
 import express from "express";
-import { registerUsers } from "../controllers/authControllers.js";
+import { registerUsers, loginUsers } from "../controllers/authControllers.js";
 // import { auth } from "../middleware/auth.js";
 // import upload from "../middleware/upload.js";
 // import { verify } from "node:crypto";
@@ -8,5 +8,6 @@ import { registerUsers } from "../controllers/authControllers.js";
 const authRouter = express.Router();
 
 authRouter.post("/register", registerUsers);
+authRouter.post("/login", loginUsers);
 
 export default authRouter;
