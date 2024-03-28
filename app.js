@@ -25,36 +25,6 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-const qwe = Date.now();
-
-const water = {
-  id: "wqeqweqwe",
-  owner: "qweqweqweqweqwe",
-  amount_consumed: [
-    {
-      time: "7:00",
-      amount: 300,
-    },
-    {
-      time: "8:00",
-      amount: 300,
-    },
-    {
-      time: "9:00",
-      amount: 300,
-    },
-    {
-      time: "10:00",
-      amount: 300,
-    },
-  ],
-  limit: 1500,
-  persent: 0,
-  data: qwe,
-};
-
-console.log(water);
-
 app.listen(3000, () => {
   console.log("Server is running. Use our API on port: 3000");
 });
