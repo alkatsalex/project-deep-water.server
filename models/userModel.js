@@ -37,6 +37,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Verify token is required"],
     },
+    gender: {
+      type: String,
+      enum: ["Woman", "Man"],
+      default: "Woman",
+    },
   },
   { versionKey: false, timestamps: true }
 );

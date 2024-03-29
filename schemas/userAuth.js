@@ -16,3 +16,10 @@ export const userAuth = Joi.object({
     "any.required": "Missing email field",
   }),
 });
+
+export const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegex).required().messages({
+    "string.pattern.base": "Invalid email format",
+    "any.required": "Missing email field",
+  }),
+});
