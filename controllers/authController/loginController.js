@@ -7,58 +7,42 @@ import crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 
 import User from "../../models/userModel.js";
+import HttpError from "../../helpers/HttpError.js";
 
-import { userAuth } from "../../schemas/userAuth.js";
-
-const loginUsers = async (req, res, next) => {
+const loginUsers = async (req, res) => {
   const { email, password } = req.body;
 
   const normalizedEmail = email.toLowerCase();
 
-  const { _, error } = userAuth.validate({
-    email: normalizedEmail,
-    password,
-  });
+  const user = await User.findOne({ email: normalizedEmail });
 
-  if (typeof error !== "undefined") {
-    return res.status(400).json({ message: error.message });
+  if (user !== null) {
+    throw HttpError(401, "Email or password is wrong");
   }
 
-  try {
-    const user = await User.findOne({ email: normalizedEmail });
-    if (user === null) {
-      res.status(401).send({ message: "Email or password is wrong" });
-    }
-
-    if (user.verify === false) {
-      res.status(401).send({ message: "Your account is not verify" });
-    }
-
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-    if (isPasswordCorrect === false) {
-      return res.status(401).send({ message: "Email or password is wrong" });
-    }
-
-    const token = jwt.sign(
-      {
-        id: user._id,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    await User.findByIdAndUpdate(user._id, { token });
-    const resUser = {
-      token,
-      user: {
-        email,
-      },
-    };
-    res.send(resUser);
-  } catch (error) {
-    next(error);
+  if (user.verify === false) {
+    res.status(401).send({ message: "Your account is not verify" });
   }
+
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+  if (isPasswordCorrect === false) {
+    throw HttpError(401, "Email or password is wrong");
+  }
+
+  const payload = {
+    id: user._id,
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+  await User.findByIdAndUpdate(user._id, { token });
+  const resUser = {
+    token,
+    user: {
+      email,
+    },
+  };
+  res.status(200).send(resUser);
 };
 
 export default loginUsers;

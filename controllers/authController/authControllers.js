@@ -10,6 +10,7 @@ import gravatar from "gravatar";
 import User from "../../models/userModel.js";
 
 import HttpError from "../../helpers/HttpError.js";
+import sendEmail from "../../helpers/sendEmail.js";
 
 const registerUsers = async (req, res) => {
   const { email, password } = req.body;
@@ -32,17 +33,17 @@ const registerUsers = async (req, res) => {
     verificationToken,
   });
 
-  // const verificationEmail = {
-  //   to: email,
-  //   subject: "Verify email",
-  //   html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}"> Click to verify </a>`,
-  //   text: `To confirm you registration please open the link href="http://localhost:3000/api/users/verify/${verificationToken}`,
-  // };
-  // await sendEmail(verificationEmail);
+  const verificationEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}"> Click to verify </a>`,
+    text: `To confirm you registration please open the link href="http://localhost:3000/api/users/verify/${verificationToken}`,
+  };
+  await sendEmail(verificationEmail);
 
   res.status(201).send({
-    message: "Registration successfully",
-    // message: "Registration successfully, check your email to verify",
+    // message: "Registration successfully",
+    message: "Registration successfully, check your email to verify",
   });
 };
 
