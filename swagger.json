@@ -1,0 +1,222 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Water Tracker API",
+    "description": "API",
+    "version": "1.0.0"
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "producer": ["application/json", "multipart/form-data"],
+  "servers": [{ "url": "http://localhost:3000" }],
+  "tags": [
+    { "name": "Auth", "description": "Authorization endpoint" },
+    { "name": "User", "description": "User info endpoint" },
+    { "name": "Water", "description": "Water info endpoint" }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create a new user",
+
+        "requestBody": {
+          "description": "Registration's object.",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Incorrect data in the body of the request)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationBadRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This email is already in use.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReRegistration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user.",
+
+        "requestBody": {
+          "description": "Login's object.",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login's responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationBadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid email format.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginBadRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout user.",
+
+        "responses": {
+          "200": {
+            "description": "The user is Logout."
+          },
+          "401": {
+            "description": "Missing header with authorization token."
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email.",
+            "example": "user@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwertyui"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Registration response.",
+            "example": "Registration successfully"
+          }
+        }
+      },
+      "RegistrationBadRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Registration response.",
+            "example": "Bad request"
+          }
+        }
+      },
+      "ReRegistration": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Registration response.",
+            "example": "Email in use"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Authorization token.",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDZiMjExYTQwNzRlZTk0NDNhNDc3NSIsImlhdCI6MTcxMTcxNzIzNywiZXhwIjoxNzExNzIwODM3fQ.1ZyfBjIVdzrWqsSEcOlSjH0gI_zwDdOY4K50ZF3wPxA"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "Emil",
+                "example": "user@mail.com"
+              }
+            }
+          }
+        }
+      },
+      "LoginBadRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Email or password is wrong error.",
+            "example": "Email or password is wrong"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "schema": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
