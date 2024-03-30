@@ -1,5 +1,4 @@
-import HttpError from "../../helpers/HttpError.js";
-import sendEmail from "../../helpers/sendEmail.js";
+import { HttpError, sendEmail } from "../../helpers/index.js";
 import User from "../../models/userModel.js";
 
 const verifyEmailRepeat = async (req, res, next) => {

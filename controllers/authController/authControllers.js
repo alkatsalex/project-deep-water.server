@@ -5,9 +5,7 @@ import crypto from "node:crypto";
 import gravatar from "gravatar";
 
 import User from "../../models/userModel.js";
-
-import HttpError from "../../helpers/HttpError.js";
-import sendEmail from "../../helpers/sendEmail.js";
+import { HttpError, sendEmail } from "../../helpers/index.js";
 
 const registerUsers = async (req, res) => {
   const { email, password } = req.body;
