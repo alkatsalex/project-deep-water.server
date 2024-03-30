@@ -1,5 +1,4 @@
-import User from '../../models/userModel.js';
-import handleMongooseError from '../../helpers/handleMongooseError.js';
+import User from "../../models/userModel.js";
 
 const updateInfo = async (req, res) => {
   const userId = req.user.id;
@@ -7,7 +6,7 @@ const updateInfo = async (req, res) => {
   if (!name && !email && !password && !gender === undefined) {
     return res
       .status(400)
-      .json({ message: 'Body must have at least one field' });
+      .json({ message: "Body must have at least one field" });
   }
 };
 export default updateInfo;
