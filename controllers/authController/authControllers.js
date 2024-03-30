@@ -1,10 +1,7 @@
 // НІЧОГО НЕ ЗМІНЮВАТИ
 import "dotenv/config";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
-import jwt from "jsonwebtoken";
 import gravatar from "gravatar";
 
 import User from "../../models/userModel.js";
