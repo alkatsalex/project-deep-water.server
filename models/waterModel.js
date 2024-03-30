@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { handleMongooseError } from "../helpers";
 
 const WaterEntrySchema = new mongoose.Schema({
   time: {
@@ -29,5 +30,7 @@ const WaterTrackingSchema = new mongoose.Schema({
     default: [],
   },
 });
+
+WaterTrackingSchema.post("save", handleMongooseError);
 
 export default mongoose.model("WaterTracking", WaterTrackingSchema);

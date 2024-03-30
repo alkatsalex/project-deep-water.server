@@ -13,11 +13,9 @@ import {
   updateInfo,
   getUserInfo,
 } from "../controllers/userController/index.js";
-import { auth } from "../middleware/auth.js";
-import validateBody from "../middleware/validateBody.js";
+import { auth, validateBody, upload } from "../middleware/index.js";
 import { emailSchema, userAuth } from "../schemas/userAuth.js";
-import ctrlWrapper from "../helpers/ctrlWrapper.js";
-import upload from "../middleware/upload.js";
+import { ctrlWrapper } from "../helpers/index.js";
 
 // import { verify } from "node:crypto";
 

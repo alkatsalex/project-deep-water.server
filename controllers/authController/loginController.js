@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../../models/userModel.js";
-import HttpError from "../../helpers/HttpError.js";
+import { HttpError } from "../../helpers/index.js";
 
 const loginUsers = async (req, res) => {
   const { email, password } = req.body;

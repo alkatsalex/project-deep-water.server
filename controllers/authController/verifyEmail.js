@@ -1,4 +1,4 @@
-import HttpError from "../../helpers/HttpError.js";
+import { HttpError } from "../../helpers/index.js";
 import User from "../../models/userModel.js";
 
 const verifyEmail = async (req, res, next) => {
