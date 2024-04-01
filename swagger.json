@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "API",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -60,6 +60,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -110,21 +113,141 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/users/logout": {
-      "post": {
+      "get": {
         "tags": ["Auth"],
         "summary": "Logout user.",
-
+        "parameters": [
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
         "responses": {
           "200": {
             "description": "The user is Logout."
           },
           "401": {
-            "description": "Missing header with authorization token."
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/users/info/:id": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get infirmation about user",
+        "parameters": [
+          { "in": "path", "name": "id", "required": "true" },
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information reserved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfoRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/users/avatar/:id": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Chenge user's avatar.",
+        "parameters": [
+          { "in": "path", "name": "id", "required": "true" },
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "Avatar's file",
+          "required": "true",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ChengeAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar replaced successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChengeAvatarResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/users/edit/:id": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Chenge user's informations.",
+        "parameters": [
+          { "in": "path", "name": "id", "required": "true" },
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "Avatar's file",
+          "required": "true",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ChengeAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar replaced successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChengeAvatarResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
 
@@ -207,6 +330,51 @@
             "type": "string",
             "description": "Email or password is wrong error.",
             "example": "Email or password is wrong"
+          }
+        }
+      },
+      "InfoRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email.",
+            "example": "user@mail.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "User name.",
+            "example": "Alex"
+          },
+          "gender": {},
+          "avatarURL": {
+            "type": "string",
+            "description": "User avatar.",
+            "example": "//www.gravatar.com/avatar/0312d0d39585741666c19c217ed769f7"
+          },
+          "id": {
+            "type": "string",
+            "description": "User id.",
+            "example": "660ab1bf135b46797793af4f"
+          }
+        }
+      },
+      "ChengeAvatarRequest": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "ChengeAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User avatar link.",
+            "example": "http://res.cloudinary.com/djb7jo0mt/image/upload/v1711980043/avatars/ovp85jj1soxfsxqnksji.jpg"
           }
         }
       }

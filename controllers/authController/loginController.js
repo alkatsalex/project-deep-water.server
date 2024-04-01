@@ -13,7 +13,7 @@ const loginUsers = async (req, res) => {
 
   const user = await User.findOne({ email: normalizedEmail });
 
-  if (user !== null) {
+  if (user === null) {
     throw HttpError(401, "Email or password is wrong");
   }
 
