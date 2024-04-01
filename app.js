@@ -9,6 +9,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 import authRouter from "./routes/authRoutes.js";
+import waterRouter from "./routes/waterRouter.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
+app.use("api/waters", waterRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
