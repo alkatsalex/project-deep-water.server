@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import crypto from "node:crypto";
-import { handleMongooseError } from "../helpers";
+import mongoose from 'mongoose';
+import crypto from 'node:crypto';
+import { handleMongooseError } from '../helpers/index.js';
 
 const WaterEntrySchema = new mongoose.Schema({
   id: {
@@ -9,26 +9,26 @@ const WaterEntrySchema = new mongoose.Schema({
   },
   time: {
     type: Date,
-    required: [true, "Time is required"],
+    required: [true, 'Time is required'],
   },
   amount: {
     type: Number,
-    required: [true, "Amount is required"],
+    required: [true, 'Amount is required'],
   },
 });
 
 const WaterTrackingSchema = new mongoose.Schema({
   user_id: {
     type: String,
-    required: [true, "User ID is required"],
+    required: [true, 'User ID is required'],
   },
   date: {
     type: Date,
-    required: [true, "Date is required"],
+    required: [true, 'Date is required'],
   },
   daily_limit: {
     type: Number,
-    required: [true, "Daily limit is required"],
+    required: [true, 'Daily limit is required'],
   },
   water_entries: {
     type: [WaterEntrySchema],
@@ -36,6 +36,6 @@ const WaterTrackingSchema = new mongoose.Schema({
   },
 });
 
-WaterTrackingSchema.post("save", handleMongooseError);
+WaterTrackingSchema.post('save', handleMongooseError);
 
-export default mongoose.model("WaterTracking", WaterTrackingSchema);
+export default mongoose.model('WaterTracking', WaterTrackingSchema);
