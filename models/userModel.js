@@ -42,6 +42,11 @@ const UserSchema = new mongoose.Schema(
       enum: ["Woman", "Man"],
       default: "Woman",
     },
+    daily_limit: {
+      type: Number,
+      required: [true, "Daily limit is required"],
+      default: 2000,
+    },
   },
   { versionKey: false, timestamps: true }
 );

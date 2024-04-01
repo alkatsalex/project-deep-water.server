@@ -22,6 +22,7 @@ const registerUsers = async (req, res) => {
   const verificationToken = crypto.randomUUID();
 
   await User.create({
+    name: normalizedEmail.split("@")[0],
     email: normalizedEmail,
     password: passwordHash,
     avatarURL,
@@ -37,7 +38,6 @@ const registerUsers = async (req, res) => {
   await sendEmail(verificationEmail);
 
   res.status(201).send({
-    // message: "Registration successfully",
     message: "Registration successfully, check your email to verify",
   });
 };
