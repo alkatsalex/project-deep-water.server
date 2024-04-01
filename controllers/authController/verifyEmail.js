@@ -5,7 +5,7 @@ const verifyEmail = async (req, res, next) => {
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
 
-  if (user !== null) {
+  if (user === null) {
     throw HttpError(404, "User not found");
   }
 

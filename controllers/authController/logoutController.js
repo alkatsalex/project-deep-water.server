@@ -2,8 +2,9 @@ import { HttpError } from "../../helpers/index.js";
 import User from "../../models/userModel.js";
 
 const logOut = async (req, res) => {
-  const { _id } = req.user;
-  const result = await User.findByIdAndUpdate(_id, { token: null });
+  const { id } = res.user;
+  console.log(id);
+  const result = await User.findByIdAndUpdate(id, { token: null });
 
   if (!result) {
     throw HttpError(401, "Not autorized");
