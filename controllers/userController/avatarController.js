@@ -16,20 +16,17 @@ cloudinary.config({
 const updateAvatar = async (req, res) => {
   const userId = req.params.id;
   const { path } = req.file;
-  try {
-    const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'avatars',
-      width: 200,
-      height: 200,
-    });
-    await fs.unlink(path);
 
-    await User.findByIdAndUpdate(userId, { avatarURL });
+  const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
+    folder: 'avatars',
+    width: 200,
+    height: 200,
+  });
+  await fs.unlink(path);
 
-    res.status(200).send({ avatarURL });
-  } catch (error) {
-    console.log(error);
-  }
+  await User.findByIdAndUpdate(userId, { avatarURL });
+
+  res.status(200).send({ avatarURL });
 };
 
 export default updateAvatar;
