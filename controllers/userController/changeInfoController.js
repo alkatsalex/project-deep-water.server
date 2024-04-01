@@ -7,20 +7,8 @@ const updateInfo = async (req, res, next) => {
   const { oldPassword, newPassword, newEmail } = req.body;
   const user = await User.findById(userId);
   const { password } = user;
-  // const { email } = user;
   const oldEmail = req.user;
   let newPasswordHash;
-  // const comparedPassword = await bcrypt.compare(
-  //   oldPassword,
-  //   password,
-  //   (error, data) => {
-  //     if (data) {
-  //       return res.status(200);
-  //     } else {
-  //       return res.status(401).send({ message: 'Invalid credencial' });
-  //     }
-  //   }
-  // );
 
   if (oldPassword && newPassword) {
     if (oldPassword === newPassword) {
@@ -39,9 +27,6 @@ const updateInfo = async (req, res, next) => {
     newPasswordHash = await bcrypt.hash(newPassword, 10);
   }
 
-  // user.password = newPasswordHash;
-
-  // ============================================
   if (newEmail && newEmail !== oldEmail) {
     const userWithNewEmail = await User.findOne({ email: newEmail });
 
@@ -63,13 +48,3 @@ const updateInfo = async (req, res, next) => {
 };
 
 export default updateInfo;
-
-// const updatedUser = await User.findByIdAndUpdate(userId, newUserData, {
-//   new: true,
-// });
-
-// if (!name && !email && !password && !gender === undefined) {
-//   return res
-//     .status(400)
-//     .json({ message: 'Body must have at least one field' });
-// }
