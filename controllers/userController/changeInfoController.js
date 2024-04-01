@@ -9,7 +9,7 @@ const updateInfo = async (req, res, next) => {
   const { password } = user;
   // const { email } = user;
   const oldEmail = req.user;
-
+  let newPasswordHash;
   // const comparedPassword = await bcrypt.compare(
   //   oldPassword,
   //   password,
@@ -22,17 +22,23 @@ const updateInfo = async (req, res, next) => {
   //   }
   // );
 
-  if (oldPassword === newPassword) {
-    throw HttpError(400, 'The new password must be different from the old one');
+  if (oldPassword && newPassword) {
+    if (oldPassword === newPassword) {
+      throw HttpError(
+        400,
+        'The new password must be different from the old one'
+      );
+    }
+
+    const comparedPassword = await bcrypt.compare(oldPassword, password);
+
+    if (!comparedPassword) {
+      throw HttpError(401, 'Current password is incorrect');
+    }
+
+    newPasswordHash = await bcrypt.hash(newPassword, 10);
   }
 
-  const comparedPassword = await bcrypt.compare(oldPassword, password);
-
-  if (!comparedPassword) {
-    throw HttpError(401, 'Current password is incorrect');
-  }
-
-  const newPasswordHash = await bcrypt.hash(newPassword, 10);
   // user.password = newPasswordHash;
 
   // ============================================
@@ -55,6 +61,7 @@ const updateInfo = async (req, res, next) => {
   const { name = '', gender, email } = updatedUser;
   res.status(200).json({ email, name, gender });
 };
+
 export default updateInfo;
 
 // const updatedUser = await User.findByIdAndUpdate(userId, newUserData, {
