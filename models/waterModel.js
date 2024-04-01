@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
+import crypto from "node:crypto";
 import { handleMongooseError } from "../helpers";
 
 const WaterEntrySchema = new mongoose.Schema({
+  id: {
+    type: String,
+    default: crypto.randomUUID(),
+  },
   time: {
     type: Date,
     required: [true, "Time is required"],
