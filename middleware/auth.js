@@ -30,7 +30,7 @@ export const auth = (req, res, next) => {
     if (user.token !== token) {
       return res.status(401).send({ message: "Invalid token" });
     }
-    console.log(decode);
+
     res.user = {
       id: decode.id,
     };
