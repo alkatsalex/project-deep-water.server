@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import crypto from "node:crypto";
 import { handleMongooseError } from "../helpers/index.js";
 
 const WaterEntrySchema = new mongoose.Schema({
-  id: {
+  drink_id: {
     type: String,
     default: crypto.randomUUID(),
   },
   time: {
-    type: Date,
+    type: String,
     required: [true, "Time is required"],
   },
   amount: {
@@ -19,10 +19,6 @@ const WaterEntrySchema = new mongoose.Schema({
 });
 
 const WaterTrackingSchema = new mongoose.Schema({
-  user_id: {
-    type: String,
-    required: [true, "User ID is required"],
-  },
   date: {
     type: Date,
     required: [true, "Date is required"],
@@ -35,6 +31,10 @@ const WaterTrackingSchema = new mongoose.Schema({
   water_entries: {
     type: [WaterEntrySchema],
     default: [],
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
