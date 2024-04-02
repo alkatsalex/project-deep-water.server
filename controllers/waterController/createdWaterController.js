@@ -9,14 +9,15 @@ const createdWaterController = async (req, res) => {
   const stringDate = date.toLocaleDateString();
 
   const { daily_limit } = await User.findById(id);
-  const water = await WaterTracking.findOne({ date: stringDate, user_id: id });
+  const water = await WaterTracking.findOne({ date: stringDate, owner: id });
 
   if (water !== null) {
     return res.end();
   }
+
   const newWater = await WaterTracking.create({
     date: stringDate,
-    user_id: id,
+    owner: id,
     daily_limit,
   });
   res.status(201).send(newWater);
