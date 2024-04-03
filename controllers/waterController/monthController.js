@@ -1,12 +1,13 @@
 import WaterTracking from "../../models/waterModel.js";
-import User from "../../models/userModel.js";
+import HttpError from "../../helpers/HttpError.js";
 
 const getMonthData = async (req, res) => {
-  //   const { _id: owner } = req.user;
   const { id } = res.user;
-  //   const { daily_limit } = await  WaterTracking.findById(id);
-
   const { date } = req.body;
+
+  if (date === null) {
+    throw HttpError(400, "The body must contain a date");
+  }
 
   const result = await WaterTracking.find({
     owner: id,
