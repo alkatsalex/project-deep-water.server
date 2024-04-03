@@ -20,7 +20,7 @@ const WaterEntrySchema = new mongoose.Schema({
 
 const WaterTrackingSchema = new mongoose.Schema({
   date: {
-    type: Date,
+    type: String,
     required: [true, "Date is required"],
   },
   daily_limit: {
