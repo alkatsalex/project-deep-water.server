@@ -5,6 +5,7 @@ export const idSchema = Joi.object({
 });
 
 export const drinkSchema = Joi.object({
-  time: Joi.string(),
-  amount: Joi.number(),
+  date: Joi.string().length(10),
+  time: Joi.string().min(4).max(8),
+  amount: Joi.number().integer().positive().less(5001),
 });

@@ -1,15 +1,29 @@
+import { HttpError } from "../../helpers/index.js";
 import WaterTracking from "../../models/waterModel.js";
 
 const addDrink = async (req, res) => {
   const { id: owner } = res.user;
-  const { time, amount } = req.body;
+  const { time, amount, date } = req.body;
 
-  const findDrink = await WaterTracking.findOne({ owner });
+  const findDrink = await WaterTracking.findOne({ owner, date });
 
-  const t = findDrink.water_entries.push([time, amount]);
-  console.log(t);
+  const newDrink = [...findDrink.water_entries];
 
-  //   const result = water_entries.push({ time, amount });
+  const drink = newDrink.find((option) => option.time === time);
+
+  if (drink) {
+    throw HttpError(409, "Time in use");
+  }
+
+  newDrink.push({ time, amount });
+
+  const newDrinkBD = await WaterTracking.findOneAndUpdate(
+    { _id: findDrink._id },
+    { water_entries: newDrink },
+    { new: true }
+  );
+
+  res.status(201).send(newDrinkBD);
 };
 
 export default addDrink;
