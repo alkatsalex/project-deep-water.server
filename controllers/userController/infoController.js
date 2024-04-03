@@ -1,10 +1,10 @@
 import User from '../../models/userModel.js';
 
 const getUserInfo = async (req, res) => {
-  const userId = req.params.id;
+  const { id } = res.user;
 
-  const { email, avatarURL, id, gender } = await User.findById(userId);
-  const newData = { email, avatarURL, id, gender };
+  const { email, avatarURL, gender, daily_limit } = await User.findById(idd);
+  const newData = { email, avatarURL, id, gender, daily_limit };
   res.send(newData);
 };
 
