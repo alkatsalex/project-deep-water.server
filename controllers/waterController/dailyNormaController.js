@@ -1,5 +1,5 @@
-import WaterTracking from '../../models/waterModel.js';
-import User from '../../models/userModel.js';
+import WaterTracking from "../../models/waterModel.js";
+import User from "../../models/userModel.js";
 
 const changeDailyNorm = async (req, res) => {
   const { id } = res.user;
@@ -9,7 +9,7 @@ const changeDailyNorm = async (req, res) => {
   const { daily_limit } = req.body;
 
   const newDaily_limit = await WaterTracking.findOneAndUpdate(
-    { date: stringDate, user_id: id },
+    { date: stringDate, owner: id },
     { daily_limit },
     { new: true }
   );
