@@ -22,7 +22,13 @@ waterRouter.patch(
 );
 waterRouter.post("/created", ctrlWrapper(createdWaterController));
 
-waterRouter.post("/drink", auth, validateBody(drinkSchema), addDrink);
+waterRouter.post(
+  "/drink",
+  auth,
+  validateBody(drinkSchema),
+  ctrlWrapper(addDrink)
+);
+
 // waterRouter.put("/drink/:id");
 // waterRouter.delete("/drink/:id", auth);
 
