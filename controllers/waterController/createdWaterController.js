@@ -13,7 +13,6 @@ const createdWaterController = async (req, res) => {
 
   if (water !== null) {
     const count = water.water_entries.length;
-    water.count = count;
     const totalAmount = water.water_entries.reduce(
       (acc, entry) => acc + entry.amount,
       0
@@ -25,19 +24,10 @@ const createdWaterController = async (req, res) => {
     return res.status(200).send(water);
   }
 
-  // const water_entries = [
-  //   { time: "7:00", amount: 250 },
-  //   { time: "8:00", amount: 250 },
-  //   { time: "9:00", amount: 250 },
-  //   { time: "9:00", amount: 250 },
-  // ];
-
   const newWater = await WaterTracking.create({
     date: stringDate,
     owner: id,
     daily_limit,
-    water_entries,
-    count: water_entries.length,
   });
   res.status(201).send(newWater);
 };
