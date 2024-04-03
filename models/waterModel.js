@@ -32,6 +32,14 @@ const WaterTrackingSchema = new mongoose.Schema({
     type: [WaterEntrySchema],
     default: [],
   },
+  count: {
+    type: Number,
+    default: 0,
+  },
+  percent: {
+    type: Number,
+    default: 0,
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
