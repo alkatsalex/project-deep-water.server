@@ -3,11 +3,11 @@ import User from '../../models/userModel.js';
 import HttpError from '../../helpers/HttpError.js';
 
 const updateInfo = async (req, res, next) => {
-  const userId = req.params.id;
+  const { id } = res.user;
   const { oldPassword, newPassword, newEmail } = req.body;
-  const user = await User.findById(userId);
+  const user = await User.findById(id);
   const { password } = user;
-  const oldEmail = req.user;
+  const oldEmail = user.email;
   let newPasswordHash;
 
   if (oldPassword && newPassword) {
@@ -29,17 +29,18 @@ const updateInfo = async (req, res, next) => {
 
   if (newEmail && newEmail !== oldEmail) {
     const userWithNewEmail = await User.findOne({ email: newEmail });
-
-    if (userWithNewEmail) {
+    if (userWithNewEmail !== null) {
       throw HttpError(409, 'Email is already in use');
     }
+    await User.findOneAndUpdate({ email: oldEmail }, { email: newEmail });
   }
+
   const updatedUserData = { ...req.body };
   if (newPasswordHash) {
     updatedUserData.password = newPasswordHash;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+  const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, {
     new: true,
   });
 

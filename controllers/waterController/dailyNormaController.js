@@ -1,12 +1,21 @@
-import WaterTracking from "../../models/waterModel.js";
+import WaterTracking from '../../models/waterModel.js';
+import User from '../../models/userModel.js';
 
 const changeDailyNorm = async (req, res) => {
-  const userId = req.params.id;
-  console.log(res.user);
+  const { id } = res.user;
+  const currentData = Date.now();
+  const date = new Date(currentData);
+  const stringDate = date.toLocaleDateString();
   const { daily_limit } = req.body;
 
-  await WaterTracking.findByIdAndUpdate(userId, { daily_limit }, { new: true });
+  const newDaily_limit = await WaterTracking.findOneAndUpdate(
+    { date: stringDate, user_id: id },
+    { daily_limit },
+    { new: true }
+  );
 
-  res.status(201).send({ message: "Daily norma changed" });
+  await User.findByIdAndUpdate(id, { daily_limit });
+
+  res.status(201).send({ daily_limit: newDaily_limit.daily_limit });
 };
 export default changeDailyNorm;

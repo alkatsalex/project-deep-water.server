@@ -14,7 +14,8 @@ cloudinary.config({
 });
 
 const updateAvatar = async (req, res) => {
-  const userId = req.params.id;
+  const { id } = res.user;
+
   const { path } = req.file;
 
   const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
@@ -24,7 +25,7 @@ const updateAvatar = async (req, res) => {
   });
   await fs.unlink(path);
 
-  await User.findByIdAndUpdate(userId, { avatarURL });
+  await User.findByIdAndUpdate(id, { avatarURL });
 
   res.status(200).send({ avatarURL });
 };
