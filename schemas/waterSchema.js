@@ -9,3 +9,11 @@ export const drinkSchema = Joi.object({
   time: Joi.string().min(4).max(8),
   amount: Joi.number().integer().positive().less(5001),
 });
+
+export const dailyNormSchema = Joi.object({
+  daily_limit: Joi.number(),
+});
+
+export const monthSchema = Joi.object({
+  date: Joi.string(),
+});
