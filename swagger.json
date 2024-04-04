@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "The API for the <a href='https://denys90.github.io/runners_of_code__frontend/'>Water Tracker</a> project was made by <a href='https://www.linkedin.com/in/alkatsalex/'>Oleksii Katsal</a>, <a href='https://www.linkedin.com/in/valentynahotsa/'>Valentyna Hotsa</a>, <a href='https://www.linkedin.com/in/ihor-konoval/'>Ihor Konoval</a>",
-    "version": "3.0.1"
+    "version": "3.1.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -147,17 +147,11 @@
         "security": [{ "Bearer": [] }]
       }
     },
-    "/users/info/:id": {
+    "/users/info": {
       "get": {
         "tags": ["User"],
         "summary": "Get infirmation about user.",
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": "true",
-            "description": "User's id."
-          },
           {
             "in": "header",
             "name": "Authorization ",
@@ -185,70 +179,11 @@
         },
 
         "security": [{ "Bearer": [] }]
-      }
-    },
-    "/users/avatar/:id": {
+      },
       "patch": {
         "tags": ["User"],
-        "summary": "Chenge user's avatar.",
+        "summary": "Change user's informations.",
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": "true",
-            "description": "User's id."
-          },
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
-        "requestBody": {
-          "description": "Avatar's file",
-          "required": "true",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/ChengeAvatarRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Avatar replaced successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChengeAvatarResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Missing header with authorization token."
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-
-        "security": [{ "Bearer": [] }]
-      }
-    },
-    "/users/edit/:id": {
-      "patch": {
-        "tags": ["User"],
-        "summary": "Chenge user's informations.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": "true",
-            "description": "User's id."
-          },
           {
             "in": "header",
             "name": "Authorization ",
@@ -262,7 +197,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChengeUserInfoRequest"
+                "$ref": "#/components/schemas/ChangeUserInfoRequest"
               }
             }
           }
@@ -273,7 +208,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChengeUserInfoRequest"
+                  "$ref": "#/components/schemas/ChangeUserInfoRequest"
                 }
               }
             }
@@ -286,6 +221,51 @@
           },
           "500": {
             "description": "Internal Server Error."
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Change user's avatar.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
+        ],
+        "requestBody": {
+          "description": "Avatar's file",
+          "required": "true",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar replaced successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeAvatarResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
 
@@ -326,7 +306,7 @@
     "/waters/daily_limit": {
       "patch": {
         "tags": ["Water"],
-        "summary": "Chenge daily limit.",
+        "summary": "Change daily limit.",
         "parameters": [
           {
             "in": "header",
@@ -341,7 +321,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChengeDailyLimitBody"
+                "$ref": "#/components/schemas/ChangeDailyLimitBody"
               }
             }
           }
@@ -588,7 +568,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetOneMunth"
+                  "$ref": "#/components/schemas/GetOneMonth"
                 }
               }
             }
@@ -722,7 +702,7 @@
           }
         }
       },
-      "ChengeAvatarRequest": {
+      "ChangeAvatarRequest": {
         "type": "object",
         "properties": {
           "file": {
@@ -731,7 +711,7 @@
           }
         }
       },
-      "ChengeAvatarResponse": {
+      "ChangeAvatarResponse": {
         "type": "object",
         "properties": {
           "avatarURL": {
@@ -741,7 +721,7 @@
           }
         }
       },
-      "ChengeUserInfoRequest": {
+      "ChangeUserInfoRequest": {
         "type": "object",
         "properties": {
           "name": {
@@ -822,7 +802,7 @@
           }
         }
       },
-      "ChengeDailyLimitBody": {
+      "ChangeDailyLimitBody": {
         "type": "object",
         "required": ["daily_limit"],
         "properties": {
@@ -864,7 +844,7 @@
           }
         }
       },
-      "GetOneMunth": {
+      "GetOneMonth": {
         "type": "array",
         "items": {
           "type": "object",
