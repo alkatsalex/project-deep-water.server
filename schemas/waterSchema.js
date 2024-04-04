@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const idSchema = Joi.object({
-  drink_id: Joi.string().length(36),
+  id: Joi.string().length(24),
 });
 
 export const drinkSchema = Joi.object({
