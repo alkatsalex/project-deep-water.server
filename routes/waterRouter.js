@@ -7,6 +7,7 @@ import {
   createdWaterController,
   deleteDrink,
   getMonthData,
+  updateDrink,
 } from "../controllers/waterController/index.js";
 import {
   drinkSchema,
@@ -29,7 +30,11 @@ waterRouter.post(
   validateBody(drinkSchema),
   ctrlWrapper(addDrink)
 );
-
+waterRouter.patch(
+  "/drink/:id",
+  validateBody(drinkSchema),
+  ctrlWrapper(updateDrink)
+);
 // waterRouter.put("/drink/:id");
 waterRouter.delete("/drink/:id", auth, validateId, ctrlWrapper(deleteDrink));
 
