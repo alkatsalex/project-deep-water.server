@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "API",
-    "version": "2.2.0"
+    "version": "2.3.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -283,7 +283,7 @@
         "security": [{ "Bearer": [] }]
       }
     },
-    "/waters/daily_limit/:id": {
+    "/waters/daily_limit": {
       "patch": {
         "tags": ["Water"],
         "summary": "Chenge daily limit.",
@@ -312,6 +312,178 @@
                     "message": {
                       "type": "string",
                       "example": "Daily norma changed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/waters/drink": {
+      "post": {
+        "tags": ["Water"],
+        "summary": "Created one drink.",
+        "parameters": [
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "An object with the data for the new drink",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatedOneDrink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created successesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Bad request (Incorrect data in the body of the request)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Time in use"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/waters/drink/:id": {
+      "delete": {
+        "tags": ["Water"],
+        "summary": "Delete one drink.",
+        "parameters": [
+          { "in": "path", "name": "id", "required": "true" },
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "An object with the data for the new drink",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "02.04.2024"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created successesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found drink",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/waters/month": {
+      "get": {
+        "tags": ["Water"],
+        "summary": "Take data for one month.",
+        "parameters": [
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "An object with the data for the new drink",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "04.2024"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created successesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOneMunth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The body must contain a date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The body must contain a date"
                     }
                   }
                 }
@@ -483,15 +655,10 @@
       "CreatedWaterResponse": {
         "type": "object",
         "properties": {
-          "user_id": {
-            "type": "string",
-            "description": "Owner id.",
-            "example": "660ab1bf135b46797793af4f"
-          },
           "date": {
             "type": "string",
             "description": "The date the record was created.",
-            "example": "2024-02-03T22:00:00.000Z"
+            "example": "04.04.2024"
           },
           "daily_limit": {
             "type": "number",
@@ -499,9 +666,40 @@
             "example": 2000
           },
           "water_entries": {
-            "type": "arrey",
+            "type": "array",
             "description": "An array of records about drinking water",
-            "example": []
+            "items": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "string",
+                  "example": "9:41"
+                },
+                "amount": {
+                  "type": "number",
+                  "example": 250
+                },
+                "date": {
+                  "type": "string",
+                  "example": "02.04.2024"
+                }
+              }
+            }
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner id.",
+            "example": "660ab1bf135b46797793af4f"
+          },
+          "count": {
+            "type": "integer",
+            "description": "Number of drinks for the day",
+            "example": 5
+          },
+          "percent": {
+            "type": "integer",
+            "description": "Number of drinks for the day",
+            "example": 80
           }
         }
       },
@@ -513,6 +711,120 @@
             "description": "New limit.",
             "example": 2500
           }
+        }
+      },
+      "CreatedOneDrink": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string",
+            "example": "9:41"
+          },
+          "amount": {
+            "type": "number",
+            "example": 250
+          },
+          "date": {
+            "type": "string",
+            "example": "02.04.2024"
+          }
+        }
+      },
+      "CreatedOneDrinkRes": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string",
+            "example": "9:41"
+          },
+          "amount": {
+            "type": "number",
+            "example": 250
+          }
+        }
+      },
+      "GetOneMunth": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "The date the record was created.",
+              "example": "04.04.2024"
+            },
+            "daily_limit": {
+              "type": "number",
+              "description": "User's water daily limit.",
+              "example": 2000
+            },
+            "water_entries": {
+              "type": "array",
+              "description": "An array of records about drinking water",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "example": "9:41"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 250
+                  },
+                  "date": {
+                    "type": "string",
+                    "example": "02.04.2024"
+                  }
+                }
+              }
+            },
+            "owner": {
+              "type": "string",
+              "description": "Owner id.",
+              "example": "660ab1bf135b46797793af4f"
+            },
+            "count": {
+              "type": "integer",
+              "description": "Number of drinks for the day",
+              "example": 5
+            },
+            "percent": {
+              "type": "integer",
+              "description": "Number of drinks for the day",
+              "example": 80
+            }
+          },
+          "example": [
+            {
+              "date": "04.04.2024",
+              "daily_limit": 2000,
+              "water_entries": [
+                {
+                  "time": "9:41",
+                  "amount": 250,
+                  "date": "02.04.2024"
+                }
+              ],
+              "owner": "660ab1bf135b46797793af4f",
+              "count": 5,
+              "percent": 50
+            },
+            {
+              "date": "05.04.2024",
+              "daily_limit": 2000,
+              "water_entries": [
+                {
+                  "time": "9:41",
+                  "amount": 200,
+                  "date": "02.04.2024"
+                }
+              ],
+              "owner": "660ab1bf135b46797793af4f",
+              "count": 10,
+              "percent": 100
+            }
+          ]
         }
       }
     },
