@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Water Tracker API",
-    "description": "API",
-    "version": "2.3.0"
+    "description": "The API for the <a href='https://denys90.github.io/runners_of_code__frontend/'>Water Tracker</a> project was made by <a href='https://www.linkedin.com/in/alkatsalex/'>Oleksii Katsal</a>, <a href='https://www.linkedin.com/in/valentynahotsa/'>Valentyna Hotsa</a>, <a href='https://www.linkedin.com/in/ihor-konoval/'>Ihor Konoval</a>",
+    "version": "3.0.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -17,7 +17,7 @@
     "/users/register": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Create a new user",
+        "summary": "Create a new user.",
 
         "requestBody": {
           "description": "Registration's object.",
@@ -32,7 +32,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created.",
+            "description": "User created successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -42,7 +42,7 @@
             }
           },
           "400": {
-            "description": "Bad request (Incorrect data in the body of the request)",
+            "description": "Bad request (Incorrect data in the body of the request).",
             "content": {
               "application/json": {
                 "schema": {
@@ -85,7 +85,7 @@
         },
         "responses": {
           "200": {
-            "description": "Login's responses.",
+            "description": "Login successful.",
             "content": {
               "application/json": {
                 "schema": {
@@ -125,7 +125,12 @@
         "tags": ["Auth"],
         "summary": "Logout user.",
         "parameters": [
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "responses": {
           "200": {
@@ -145,10 +150,20 @@
     "/users/info/:id": {
       "get": {
         "tags": ["User"],
-        "summary": "Get infirmation about user",
+        "summary": "Get infirmation about user.",
         "parameters": [
-          { "in": "path", "name": "id", "required": "true" },
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "description": "User's id."
+          },
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "responses": {
           "200": {
@@ -177,8 +192,18 @@
         "tags": ["User"],
         "summary": "Chenge user's avatar.",
         "parameters": [
-          { "in": "path", "name": "id", "required": "true" },
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "description": "User's id."
+          },
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
           "description": "Avatar's file",
@@ -193,7 +218,7 @@
         },
         "responses": {
           "200": {
-            "description": "Avatar replaced successfully",
+            "description": "Avatar replaced successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -218,11 +243,21 @@
         "tags": ["User"],
         "summary": "Chenge user's informations.",
         "parameters": [
-          { "in": "path", "name": "id", "required": "true" },
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "description": "User's id."
+          },
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
-          "description": "Object with new user's info",
+          "description": "Object with new user's info.",
           "required": "true",
           "content": {
             "application/json": {
@@ -234,7 +269,7 @@
         },
         "responses": {
           "200": {
-            "description": "User information hes been successfully changed",
+            "description": "User information hes been successfully changed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -250,7 +285,7 @@
             "description": "Unauthorized. Missing header with authorization token."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         },
 
@@ -262,11 +297,16 @@
         "tags": ["Water"],
         "summary": "Created new day's water odject.",
         "parameters": [
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "responses": {
           "201": {
-            "description": "New day's water odject",
+            "description": "New day's water odject.",
             "content": {
               "application/json": {
                 "schema": {
@@ -276,7 +316,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         },
 
@@ -288,10 +328,15 @@
         "tags": ["Water"],
         "summary": "Chenge daily limit.",
         "parameters": [
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
-          "description": "Object with new user's info",
+          "description": "Object with new user's info.",
           "required": "true",
           "content": {
             "application/json": {
@@ -303,7 +348,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created successesfully",
+            "description": "Update successesfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -319,7 +364,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         },
 
@@ -331,7 +376,12 @@
         "tags": ["Water"],
         "summary": "Created one drink.",
         "parameters": [
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
           "description": "An object with the data for the new drink",
@@ -346,7 +396,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created successesfully",
+            "description": "Created successesfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -356,7 +406,7 @@
             }
           },
           "409": {
-            "description": "Bad request (Incorrect data in the body of the request)",
+            "description": "Bad request (Incorrect data in the body of the request).",
             "content": {
               "application/json": {
                 "schema": {
@@ -372,7 +422,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         },
 
@@ -384,16 +434,27 @@
         "tags": ["Water"],
         "summary": "Delete one drink.",
         "parameters": [
-          { "in": "path", "name": "id", "required": "true" },
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "description": "User's id."
+          },
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
-          "description": "An object with the data for the new drink",
+          "description": "An object with the data for the new drink.",
           "required": "true",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["date"],
                 "properties": {
                   "date": {
                     "type": "string",
@@ -406,7 +467,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created successesfully",
+            "description": "Delete successesfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -416,7 +477,7 @@
             }
           },
           "404": {
-            "description": "Not found drink",
+            "description": "Not found drink.",
             "content": {
               "application/json": {
                 "schema": {
@@ -432,7 +493,59 @@
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      },
+      "patch": {
+        "tags": ["Water"],
+        "summary": "Edit one drink.",
+        "parameters": [
+          { "in": "path", "name": "id", "required": "true" },
+          { "in": "header", "name": "Authorization ", "required": "true" }
+        ],
+        "requestBody": {
+          "description": "An object with the data for the update drink.",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatedOneDrink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Update successesfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The body must have at least one field.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The body must have at least one field"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         },
 
@@ -444,15 +557,21 @@
         "tags": ["Water"],
         "summary": "Take data for one month.",
         "parameters": [
-          { "in": "header", "name": "Authorization ", "required": "true" }
+          {
+            "in": "header",
+            "name": "Authorization ",
+            "required": "true",
+            "description": "The token issued to the current user."
+          }
         ],
         "requestBody": {
-          "description": "An object with the data for the new drink",
+          "description": "Date to find the month.",
           "required": "true",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["date"],
                 "properties": {
                   "date": {
                     "type": "string",
@@ -465,7 +584,7 @@
         },
         "responses": {
           "200": {
-            "description": "Created successesfully",
+            "description": "Data sent successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -475,7 +594,7 @@
             }
           },
           "400": {
-            "description": "The body must contain a date",
+            "description": "The body must contain a date.",
             "content": {
               "application/json": {
                 "schema": {
@@ -491,7 +610,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         },
 
@@ -705,6 +824,7 @@
       },
       "ChengeDailyLimitBody": {
         "type": "object",
+        "required": ["daily_limit"],
         "properties": {
           "daily_limit": {
             "type": "number",
@@ -715,6 +835,7 @@
       },
       "CreatedOneDrink": {
         "type": "object",
+        "required": ["time", "amount", "date"],
         "properties": {
           "time": {
             "type": "string",
