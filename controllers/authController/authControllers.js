@@ -5,7 +5,8 @@ import crypto from "node:crypto";
 import gravatar from "gravatar";
 
 import User from "../../models/userModel.js";
-import { HttpError, sendEmail } from "../../helpers/index.js";
+// verify on = add sendEmail fun !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+import { HttpError } from "../../helpers/index.js";
 
 const registerUsers = async (req, res) => {
   const { email, password } = req.body;
@@ -26,16 +27,17 @@ const registerUsers = async (req, res) => {
     email: normalizedEmail,
     password: passwordHash,
     avatarURL,
+    verify: true,
     verificationToken,
   });
 
-  const verificationEmail = {
-    to: email,
-    subject: "Verify email",
-    html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}"> Click to verify </a>`,
-    text: `To confirm you registration please open the link href="http://localhost:3000/api/users/verify/${verificationToken}`,
-  };
-  await sendEmail(verificationEmail);
+  // const verificationEmail = {
+  //   to: email,
+  //   subject: "Verify email",
+  //   html: `<a target="_blank" href="https://project-deep-water-server.onrender.com/api/users/verify/${verificationToken}"> Click to verify </a>`,
+  //   text: `To confirm you registration please open the link href="https://project-deep-water-server.onrender.com/api/users/verify/${verificationToken}`,
+  // };
+  // await sendEmail(verificationEmail);
 
   res.status(201).send({
     message: "Registration successfully, check your email to verify",
