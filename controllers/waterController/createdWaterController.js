@@ -4,12 +4,18 @@ import User from "../../models/userModel.js";
 const createdWaterController = async (req, res) => {
   const { id } = res.user;
 
-  const currentData = Date.now();
-  const date = new Date(currentData);
-  const stringDate = date.toLocaleDateString();
+  const { date } = req.body;
 
+  // const currentData = Date.now();
+  // const date = new Date(currentData);
+  // const stringDate = date.toLocaleDateString();
+  console.log(date);
+  if (!date) {
+    return res.status(409).send("BAD REQ");
+  }
+  console.log("oops");
   const { daily_limit } = await User.findById(id);
-  const water = await WaterTracking.findOne({ date: stringDate, owner: id });
+  const water = await WaterTracking.findOne({ date: date, owner: id });
 
   if (water !== null) {
     const count = water.water_entries.length;
@@ -25,7 +31,7 @@ const createdWaterController = async (req, res) => {
   }
 
   const newWater = await WaterTracking.create({
-    date: stringDate,
+    date: date,
     owner: id,
     daily_limit,
   });

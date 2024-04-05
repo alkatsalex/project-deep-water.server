@@ -284,6 +284,24 @@
             "description": "The token issued to the current user."
           }
         ],
+        "requestBody": {
+          "description": "An object with the data for the new drink.",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["date"],
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "02.04.2024"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "New day's water odject.",
