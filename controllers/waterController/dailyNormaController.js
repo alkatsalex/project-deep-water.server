@@ -4,17 +4,15 @@ import HttpError from "../../helpers/HttpError.js";
 
 const changeDailyNorm = async (req, res) => {
   const { id } = res.user;
-  const currentData = Date.now();
-  const date = new Date(currentData);
-  const stringDate = date.toLocaleDateString();
-  const { daily_limit } = req.body;
+
+  const { daily_limit, date } = req.body;
 
   if (daily_limit === null) {
     throw HttpError(400, "The body must contain a new daily limit");
   }
 
   const newDaily_limit = await WaterTracking.findOneAndUpdate(
-    { date: stringDate, owner: id },
+    { date, owner: id },
     { daily_limit },
     { new: true }
   );

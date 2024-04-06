@@ -828,6 +828,11 @@
             "type": "number",
             "description": "New limit.",
             "example": 2500
+          },
+          "date": {
+            "type": "string",
+            "description": "Current date",
+            "example": "06.04.2024"
           }
         }
       },
