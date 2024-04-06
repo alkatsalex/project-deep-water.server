@@ -12,6 +12,7 @@ export const drinkSchema = Joi.object({
 
 export const dailyNormSchema = Joi.object({
   daily_limit: Joi.number(),
+  date: Joi.string(),
 });
 
 export const monthSchema = Joi.object({
