@@ -4,8 +4,6 @@ import HttpError from "../../helpers/HttpError.js";
 const getMonthData = async (req, res) => {
   const { id } = res.user;
   const { date } = req.body;
-  console.log("date", date);
-  console.log(typeof date);
 
   if (date === null) {
     throw HttpError(400, "The body must contain a date");
