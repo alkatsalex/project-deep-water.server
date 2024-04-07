@@ -18,7 +18,6 @@ const updateDrink = async (req, res) => {
     return null;
   }
   const findTime = arr.find((option) => option.time === time);
-  console.log(findTime);
 
   if (findTime) {
     throw HttpError(409, "Time in use");

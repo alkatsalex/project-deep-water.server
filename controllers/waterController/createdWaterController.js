@@ -6,14 +6,10 @@ const createdWaterController = async (req, res) => {
 
   const { date } = req.body;
 
-  // const currentData = Date.now();
-  // const date = new Date(currentData);
-  // const stringDate = date.toLocaleDateString();
-  console.log(date);
   if (!date) {
     return res.status(409).send("BAD REQ");
   }
-  console.log("oops");
+  
   const { daily_limit } = await User.findById(id);
   const water = await WaterTracking.findOne({ date: date, owner: id });
 
