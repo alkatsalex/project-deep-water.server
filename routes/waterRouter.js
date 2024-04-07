@@ -38,6 +38,10 @@ waterRouter.patch(
 // waterRouter.put("/drink/:id");
 waterRouter.delete("/drink/:id", auth, validateId, ctrlWrapper(deleteDrink));
 
-waterRouter.get("/month", ctrlWrapper(getMonthData));
+waterRouter.post(
+  "/month",
+  validateBody(monthSchema),
+  ctrlWrapper(getMonthData)
+);
 
 export default waterRouter;
