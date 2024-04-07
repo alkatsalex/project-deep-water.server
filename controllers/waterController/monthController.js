@@ -9,9 +9,11 @@ const getMonthData = async (req, res) => {
     throw HttpError(400, "The body must contain a date");
   }
 
+  const stringDate = date.toString();
+
   const result = await WaterTracking.find({
     owner: id,
-    date: { $regex: "04.2024" },
+    date: { $regex: stringDate },
   });
   res.status(200).send(result);
 };
