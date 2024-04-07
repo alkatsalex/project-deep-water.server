@@ -11,7 +11,7 @@ const getMonthData = async (req, res) => {
 
   const result = await WaterTracking.find({
     owner: id,
-    date: { $regex: date },
+    date: { $regex: "04.2024" },
   });
   res.status(200).send(result);
 };
