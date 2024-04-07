@@ -3,7 +3,7 @@ import User from "../../models/userModel.js";
 
 const logOut = async (req, res) => {
   const { id } = res.user;
-  console.log(id);
+
   const result = await User.findByIdAndUpdate(id, { token: null });
 
   if (!result) {
