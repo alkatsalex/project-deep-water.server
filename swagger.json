@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "The API for the <a href='https://denys90.github.io/runners_of_code__frontend/'>Water Tracker</a> project was made by <a href='https://www.linkedin.com/in/alkatsalex/'>Oleksii Katsal</a>, <a href='https://www.linkedin.com/in/valentynahotsa/'>Valentyna Hotsa</a>, <a href='https://www.linkedin.com/in/ihor-konoval/'>Ihor Konoval</a>",
-    "version": "4.0.0"
+    "version": "4.1.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -420,7 +420,7 @@
       }
     },
     "/waters/drink/:id": {
-      "delete": {
+      "put": {
         "tags": ["Water"],
         "summary": "Delete one drink.",
         "parameters": [
