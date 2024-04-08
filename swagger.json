@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "The API for the <a href='https://denys90.github.io/runners_of_code__frontend/'>Water Tracker</a> project was made by <a href='https://www.linkedin.com/in/alkatsalex/'>Oleksii Katsal</a>, <a href='https://www.linkedin.com/in/valentynahotsa/'>Valentyna Hotsa</a>, <a href='https://www.linkedin.com/in/ihor-konoval/'>Ihor Konoval</a>",
-    "version": "3.1.1"
+    "version": "4.0.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -147,10 +147,10 @@
         "security": [{ "Bearer": [] }]
       }
     },
-    "/users/info": {
+    "/users/current": {
       "get": {
-        "tags": ["User"],
-        "summary": "Get infirmation about user.",
+        "tags": ["Auth"],
+        "summary": "Get current user.",
         "parameters": [
           {
             "in": "header",
@@ -159,6 +159,33 @@
             "description": "The token issued to the current user."
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Current user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfoRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing header with authorization token."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+
+        "security": [{ "Bearer": [] }]
+      }
+    },
+    "/users/info": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get infirmation about user.",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Information reserved successfully",
@@ -183,14 +210,7 @@
       "patch": {
         "tags": ["User"],
         "summary": "Change user's informations.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Object with new user's info.",
           "required": "true",
@@ -231,14 +251,7 @@
       "patch": {
         "tags": ["User"],
         "summary": "Change user's avatar.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Avatar's file",
           "required": "true",
@@ -276,14 +289,7 @@
       "post": {
         "tags": ["Water"],
         "summary": "Created new day's water odject.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "An object with the data for the new drink.",
           "required": "true",
@@ -325,14 +331,7 @@
       "patch": {
         "tags": ["Water"],
         "summary": "Change daily limit.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Object with new user's info.",
           "required": "true",
@@ -373,14 +372,7 @@
       "post": {
         "tags": ["Water"],
         "summary": "Created one drink.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "An object with the data for the new drink",
           "required": "true",
@@ -437,12 +429,6 @@
             "name": "id",
             "required": "true",
             "description": "User's id."
-          },
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
           }
         ],
         "requestBody": {
@@ -500,10 +486,7 @@
       "patch": {
         "tags": ["Water"],
         "summary": "Edit one drink.",
-        "parameters": [
-          { "in": "path", "name": "id", "required": "true" },
-          { "in": "header", "name": "Authorization ", "required": "true" }
-        ],
+        "parameters": [{ "in": "path", "name": "id", "required": "true" }],
         "requestBody": {
           "description": "An object with the data for the update drink.",
           "required": "true",
@@ -554,14 +537,7 @@
       "get": {
         "tags": ["Water"],
         "summary": "Take data for one month.",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization ",
-            "required": "true",
-            "description": "The token issued to the current user."
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Date to find the month.",
           "required": "true",
@@ -713,10 +689,14 @@
             "description": "User avatar.",
             "example": "//www.gravatar.com/avatar/0312d0d39585741666c19c217ed769f7"
           },
-          "id": {
+          "_id": {
             "type": "string",
             "description": "User id.",
             "example": "660ab1bf135b46797793af4f"
+          },
+          "daily_limit": {
+            "type": "integer",
+            "example": 2000
           }
         }
       },
