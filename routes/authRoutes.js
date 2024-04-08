@@ -36,7 +36,7 @@ authRouter.post(
 authRouter.post("/login", validateBody(userAuth), ctrlWrapper(loginUsers));
 authRouter.get("/logout", auth, ctrlWrapper(logOut));
 authRouter.get("/info", auth, ctrlWrapper(getUserInfo));
-authRouter.post(
+authRouter.patch(
   "/avatar",
   auth,
   upload.single("avatar"),
