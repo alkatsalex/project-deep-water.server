@@ -33,6 +33,7 @@ export const auth = (req, res, next) => {
 
     res.user = {
       id: decode.id,
+      user,
     };
     next();
   });

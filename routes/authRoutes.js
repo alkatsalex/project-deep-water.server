@@ -7,6 +7,7 @@ import {
   logOut,
   verifyEmail,
   verifyEmailRepeat,
+  getCurrent,
 } from "../controllers/authController/index.js";
 import {
   updateAvatar,
@@ -42,5 +43,6 @@ authRouter.patch(
   ctrlWrapper(updateAvatar)
 );
 authRouter.patch("/info", auth, ctrlWrapper(updateInfo));
+authRouter.get("/current", auth, ctrlWrapper(getCurrent));
 
 export default authRouter;
