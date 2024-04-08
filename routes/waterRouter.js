@@ -36,7 +36,7 @@ waterRouter.patch(
   ctrlWrapper(updateDrink)
 );
 // waterRouter.put("/drink/:id");
-waterRouter.delete("/drink/:id", auth, validateId, ctrlWrapper(deleteDrink));
+waterRouter.patch("/drink/:id", auth, validateId, ctrlWrapper(deleteDrink));
 
 waterRouter.post(
   "/month",
