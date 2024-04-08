@@ -1,8 +1,8 @@
-import fs from 'fs/promises';
+import fs from "fs/promises";
 
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 
-import User from '../../models/userModel.js';
+import User from "../../models/userModel.js";
 
 const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
   process.env;
@@ -15,9 +15,10 @@ cloudinary.config({
 const updateAvatar = async (req, res) => {
   const { id } = res.user;
   const { path } = req.file;
+  console.log(path);
 
   const { url: avatarURL } = await cloudinary.uploader.upload(req.file.path, {
-    folder: 'avatars',
+    folder: "avatars",
     width: 200,
     height: 200,
   });
