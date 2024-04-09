@@ -1,19 +1,19 @@
 import "dotenv/config";
 import nodemailer from "nodemailer";
 
-const { MAILTRAP_USER, MAILTRAP_RASSWORD } = process.env;
+const { GOOGLE_SEND_PASSWORD, GOOGLE_SEND_USER } = process.env;
 
 const transport = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+  host: "smtp.gmail.com",
+  port: 465,
   auth: {
-    user: MAILTRAP_USER,
-    pass: MAILTRAP_RASSWORD,
+    user: GOOGLE_SEND_USER,
+    pass: GOOGLE_SEND_PASSWORD,
   },
 });
 
 const sendEmail = async (data) => {
-  const email = { ...data, from: MAILTRAP_USER };
+  const email = { ...data, from: GOOGLE_SEND_USER };
   await transport.sendMail(email);
 };
 
