@@ -121,7 +121,7 @@
       }
     },
     "/users/logout": {
-      "get": {
+      "post": {
         "tags": ["Auth"],
         "summary": "Logout user.",
         "parameters": [
@@ -420,7 +420,7 @@
       }
     },
     "/waters/drink/:id": {
-      "put": {
+      "delete": {
         "tags": ["Water"],
         "summary": "Delete one drink.",
         "parameters": [
@@ -429,33 +429,22 @@
             "name": "id",
             "required": "true",
             "description": "User's id."
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "required": "true",
+            "description": "Current date.",
+            "example": "?date=09.04.2024"
           }
         ],
-        "requestBody": {
-          "description": "An object with the data for the new drink.",
-          "required": "true",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["date"],
-                "properties": {
-                  "date": {
-                    "type": "string",
-                    "example": "02.04.2024"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
-            "description": "Delete successesfully.",
+            "description": "Delete successfully, object without deleted drink.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                  "$ref": "#/components/schemas/CreatedWaterResponse"
                 }
               }
             }
@@ -534,7 +523,7 @@
       }
     },
     "/waters/month": {
-      "get": {
+      "post": {
         "tags": ["Water"],
         "summary": "Take data for one month.",
         "parameters": [],
