@@ -1,5 +1,3 @@
-// НІЧОГО НЕ ЗМІНЮВАТИ
-
 import express from "express";
 import {
   registerUsers,
@@ -18,8 +16,6 @@ import { auth, validateBody, upload } from "../middleware/index.js";
 import { emailSchema, userAuth } from "../schemas/userAuth.js";
 import { ctrlWrapper } from "../helpers/index.js";
 
-// import { verify } from "node:crypto";
-
 const authRouter = express.Router();
 
 authRouter.post(
@@ -34,7 +30,7 @@ authRouter.post(
   ctrlWrapper(verifyEmailRepeat)
 );
 authRouter.post("/login", validateBody(userAuth), ctrlWrapper(loginUsers));
-authRouter.get("/logout", auth, ctrlWrapper(logOut));
+authRouter.post("/logout", auth, ctrlWrapper(logOut));
 authRouter.get("/info", auth, ctrlWrapper(getUserInfo));
 authRouter.patch(
   "/avatar",
