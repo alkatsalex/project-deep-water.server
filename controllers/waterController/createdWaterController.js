@@ -1,7 +1,7 @@
 import WaterTracking from "../../models/waterModel.js";
 import User from "../../models/userModel.js";
 
-const fetchWaterController = async (req, res) => {
+const createdWaterController = async (req, res) => {
   const { id } = res.user;
 
   const { date } = req.body;
