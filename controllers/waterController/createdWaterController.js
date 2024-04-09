@@ -21,7 +21,7 @@ const getWaterController = async (req, res) => {
     );
     const percentage = (totalAmount / water.daily_limit) * 100;
     water.count = count;
-    water.percent = percentage;
+    water.percent = Math.round(percentage);
 
     return res.status(200).send(water);
   }
