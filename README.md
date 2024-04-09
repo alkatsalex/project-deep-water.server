@@ -4,7 +4,7 @@
 
 [ENG](#ENG) [UA](#UA) [DE](#DE)
 
-##ENG
+## ENG
 
 Node.js server for [WaterTracker](https://denys90.github.io/runners_of_code__frontend/) | [GitHub](https://github.com/Denys90/runners_of_code__frontend)
 
@@ -67,7 +67,7 @@ This server is created to store users, store and process their personal dynamic 
 
 #### User
 
-```http 
+```
   GET   /users/info    | Get information about user.
   PATCH /users/info    | Change user's informations.
   PATCH /users/info    | Change user's avatar.
@@ -76,7 +76,7 @@ This server is created to store users, store and process their personal dynamic 
 
 #### Water
 
-```http 
+```
   POST   /waters/created       | Created new day's water odject.
   PATCH  /waters/daily_limit   | Change daily limit.
   POST   /waters/drink         | Created one drink.
@@ -116,7 +116,9 @@ function App() {
 - [@Igor Konoval ](https://github.com/IgorKonoval) || [linkedin](https://www.linkedin.com/in/ihor-konoval/)
 - [@Valentina Hotsa ](https://github.com/ValentinaHotsa) || [linkedin](https://www.linkedin.com/in/valentynahotsa/)
 
-##UA
+## UA  
+
+
 Сервер Node.js для [WaterTracker](https://denys90.github.io/runners_of_code__frontend/) | [GitHub](https://github.com/Denys90/runners_of_code__frontend)
 
 
@@ -139,7 +141,7 @@ WaterTracker - це додаток для відстеження кількос�
 
 ## 🔧Технічний стек
 
-```http 
+```
    - Node.js
    - Cloudinary
    - Cors
@@ -167,7 +169,7 @@ WaterTracker - це додаток для відстеження кількос�
 
 #### Auth
 
-```http
+```
   POST /users/register  | Створення нового користувача.
   POST /users/login     | Авторизація користувача.
   POST /users/logout    | Вихід користувача.
@@ -178,7 +180,7 @@ WaterTracker - це додаток для відстеження кількос�
 
 #### User
 
-```http 
+```
   GET   /users/info    | Отримати інформацію про користувача.
   PATCH /users/info    | Змінити інформацію про користувача.
   PATCH /users/info    | Змінити аватар користувача.
@@ -186,7 +188,7 @@ WaterTracker - це додаток для відстеження кількос�
 
 #### Water
 
-```http 
+```
   POST   /waters/created       | Created new day's water odject.
   PATCH  /waters/daily_limit   | Змінити денну норму.
   POST   /waters/drink         | Створити один підход випитої води.
@@ -224,13 +226,10 @@ function App() {
 
 
 
-##DE
+## DE
 
-# WaterTracker BackEnd 
 
-[ENG](#ENG) [UA](#UA) [DE](#DE)
 
-##ENG
 
 Node.js-Server für [WaterTracker](https://denys90.github.io/runners_of_code__frontend/) | [GitHub](https://github.com/Denys90/runners_of_code__frontend)
 
@@ -256,7 +255,7 @@ Dieser Server wird erstellt, um Benutzer zu speichern, ihre persönlichen dynami
   
 ## 🔧Tech Stack
 
-```http 
+```
    - Node.js
    - Cloudinary
    - Cors
@@ -284,7 +283,7 @@ Dieser Server wird erstellt, um Benutzer zu speichern, ihre persönlichen dynami
 
 #### Auth
 
-```http
+```
   POST /users/register  | Erstellen Sie einen neuen Benutzer.
   POST /users/login     | Benutzer anmelden.
   POST /users/logout    | Benutzer abmelden.
@@ -295,7 +294,7 @@ Dieser Server wird erstellt, um Benutzer zu speichern, ihre persönlichen dynami
 
 #### User
 
-```http 
+``` 
   GET   /users/info    | Informationen zum Benutzer abrufen.
   PATCH /users/info    | Benutzerinformationen ändern.
   PATCH /users/info    | Ändern Sie den Avatar des Benutzers.
@@ -304,7 +303,7 @@ Dieser Server wird erstellt, um Benutzer zu speichern, ihre persönlichen dynami
 
 #### Water
 
-```http 
+```
   POST   /waters/created       | Wasserobjekt für neuen Tag erstellt.
   PATCH  /waters/daily_limit   | Tageslimit ändern.
   POST   /waters/drink         | Habe ein Getränk kreiert.
