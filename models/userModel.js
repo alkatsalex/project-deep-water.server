@@ -1,4 +1,3 @@
-// НІЧОГО НЕ ЗМІНЮВАТИ
 import mongoose from "mongoose";
 import { handleMongooseError } from "../helpers/index.js";
 

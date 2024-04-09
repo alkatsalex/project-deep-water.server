@@ -1,7 +1,7 @@
 import WaterTracking from "../../models/waterModel.js";
 import User from "../../models/userModel.js";
 
-const createdWaterController = async (req, res) => {
+const getWaterController = async (req, res) => {
   const { id } = res.user;
 
   const { date } = req.body;
@@ -9,7 +9,7 @@ const createdWaterController = async (req, res) => {
   if (!date) {
     return res.status(409).send("BAD REQ");
   }
-  
+
   const { daily_limit } = await User.findById(id);
   const water = await WaterTracking.findOne({ date: date, owner: id });
 
@@ -33,4 +33,4 @@ const createdWaterController = async (req, res) => {
   });
   res.status(201).send(newWater);
 };
-export default createdWaterController;
+export default getWaterController;

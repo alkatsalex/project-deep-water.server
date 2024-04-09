@@ -1,11 +1,9 @@
-// НІЧОГО НЕ ЗМІНЮВАТИ
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
 import gravatar from "gravatar";
 
 import User from "../../models/userModel.js";
-// verify on = add sendEmail fun !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 import { HttpError } from "../../helpers/index.js";
 
 const registerUsers = async (req, res) => {
@@ -30,14 +28,6 @@ const registerUsers = async (req, res) => {
     verify: true,
     verificationToken,
   });
-
-  // const verificationEmail = {
-  //   to: email,
-  //   subject: "Verify email",
-  //   html: `<a target="_blank" href="https://project-deep-water-server.onrender.com/api/users/verify/${verificationToken}"> Click to verify </a>`,
-  //   text: `To confirm you registration please open the link href="https://project-deep-water-server.onrender.com/api/users/verify/${verificationToken}`,
-  // };
-  // await sendEmail(verificationEmail);
 
   res.status(201).send({
     message: "Registration successfully, check your email to verify",

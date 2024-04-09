@@ -1,4 +1,3 @@
-// НІЧОГО НЕ ЗМІНЮВАТИ
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

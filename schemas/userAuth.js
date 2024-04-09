@@ -1,5 +1,3 @@
-// НІЧОГО НЕ ЗМІНЮВАТИ
-
 import Joi from "joi";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -12,14 +10,16 @@ export const userAuth = Joi.object({
     "any.required": "Missing password field",
   }),
   email: Joi.string().pattern(emailRegex).required().messages({
-    "string.pattern.base": "Invalid email format",
+    "string.pattern.base":
+      "Invalid email format. Example: example@example.com or user.name@example.co.uk",
     "any.required": "Missing email field",
   }),
 });
 
 export const emailSchema = Joi.object({
   email: Joi.string().pattern(emailRegex).required().messages({
-    "string.pattern.base": "Invalid email format",
+    "string.pattern.base":
+      "Invalid email format. Example: example@example.com or user.name@example.co.uk",
     "any.required": "Missing email field",
   }),
 });

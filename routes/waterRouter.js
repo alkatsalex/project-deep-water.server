@@ -4,7 +4,7 @@ import { auth, validateBody, validateId } from "../middleware/index.js";
 import {
   addDrink,
   changeDailyNorm,
-  createdWaterController,
+  getWaterController,
   deleteDrink,
   getMonthData,
   updateDrink,
@@ -22,7 +22,11 @@ waterRouter.patch(
   validateBody(dailyNormSchema),
   ctrlWrapper(changeDailyNorm)
 );
-waterRouter.post("/created", ctrlWrapper(createdWaterController));
+waterRouter.post(
+  "/created",
+  validateBody(monthSchema),
+  ctrlWrapper(getWaterController)
+);
 
 waterRouter.post(
   "/drink",
@@ -35,7 +39,7 @@ waterRouter.patch(
   validateBody(drinkSchema),
   ctrlWrapper(updateDrink)
 );
-// waterRouter.put("/drink/:id");
+
 waterRouter.put("/drink/:id", auth, validateId, ctrlWrapper(deleteDrink));
 
 waterRouter.post(

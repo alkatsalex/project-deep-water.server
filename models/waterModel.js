@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import crypto from "node:crypto";
 import { handleMongooseError } from "../helpers/index.js";
 
 const WaterEntrySchema = new mongoose.Schema({
