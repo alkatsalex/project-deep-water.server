@@ -3,8 +3,8 @@ import WaterTracking from "../../models/waterModel.js";
 
 const deleteDrink = async (req, res) => {
   const { id } = req.params;
+  const { date } = req.query;
   const { id: owner } = res.user;
-  const { date } = req.body;
 
   const findDrink = await WaterTracking.findOne({ owner, date });
 
