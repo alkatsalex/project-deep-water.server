@@ -3,7 +3,7 @@
   "info": {
     "title": "Water Tracker API",
     "description": "The API for the <a href='https://denys90.github.io/runners_of_code__frontend/'>Water Tracker</a> project was made by <a href='https://www.linkedin.com/in/alkatsalex/'>Oleksii Katsal</a>, <a href='https://www.linkedin.com/in/valentynahotsa/'>Valentyna Hotsa</a>, <a href='https://www.linkedin.com/in/ihor-konoval/'>Ihor Konoval</a>",
-    "version": "4.2.1"
+    "version": "5.0.0"
   },
   "consumes": ["application/json", "multipart/form-data"],
   "producer": ["application/json", "multipart/form-data"],
@@ -276,7 +276,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChangeUserInfoRequest"
+                  "$ref": "#/components/schemas/ChangeUserInfoResponse"
                 }
               }
             }
@@ -399,9 +399,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Daily norma changed"
+                    "daily_limit": {
+                      "type": "integer",
+                      "example": 2000
                     }
                   }
                 }
@@ -438,7 +438,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                  "$ref": "#/components/schemas/CreatedWaterResponse"
                 }
               }
             }
@@ -541,7 +541,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedOneDrinkRes"
+                  "$ref": "#/components/schemas/CreatedWaterResponse"
                 }
               }
             }
@@ -685,15 +685,30 @@
             "description": "Authorization token.",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDZiMjExYTQwNzRlZTk0NDNhNDc3NSIsImlhdCI6MTcxMTcxNzIzNywiZXhwIjoxNzExNzIwODM3fQ.1ZyfBjIVdzrWqsSEcOlSjH0gI_zwDdOY4K50ZF3wPxA"
           },
-          "user": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string",
-                "description": "Emil",
-                "example": "user@mail.com"
-              }
-            }
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@mail.com"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar.",
+            "example": "http://res.cloudinary.com/djb7jo0mt/image/upload/v1712750106/avatars/tvnoxaq6rbvpi7qqrb5n.png"
+          },
+          "id": {
+            "type": "string",
+            "description": "User's id.",
+            "example": "66167d62d0cc59353ee42e1e"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender.",
+            "example": "Man"
+          },
+          "daily_limit": {
+            "type": "integer",
+            "description": "User's daily limit.",
+            "example": 2000
           }
         }
       },
@@ -762,6 +777,36 @@
           "name": {
             "type": "string",
             "description": "User's name.",
+            "example": "Inna"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email.",
+            "example": "user@mail.com"
+          },
+          "gender": {
+            "type": "string",
+            "description": "User gender",
+            "example": "Women"
+          },
+          "oldPassword": {
+            "type": "string",
+            "description": "Former password of user.",
+            "example": "Qwerasdzxc123"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "New password of user.",
+            "example": "321cxzdsaewQ"
+          }
+        }
+      },
+      "ChangeUserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name.",
             "example": "Alex"
           },
           "email": {
@@ -773,16 +818,6 @@
             "type": "string",
             "description": "User gender",
             "example": "Man"
-          },
-          "oldPassword": {
-            "type": "string",
-            "description": "Former password of user.",
-            "example": "Qwerasdzxc123"
-          },
-          "newPassword": {
-            "type": "string",
-            "description": "New password of user.",
-            "example": "321cxzdsaewQ"
           }
         }
       },
@@ -868,19 +903,6 @@
           "date": {
             "type": "string",
             "example": "02.04.2024"
-          }
-        }
-      },
-      "CreatedOneDrinkRes": {
-        "type": "object",
-        "properties": {
-          "time": {
-            "type": "string",
-            "example": "9:41"
-          },
-          "amount": {
-            "type": "number",
-            "example": 250
           }
         }
       },
@@ -972,7 +994,7 @@
     "securitySchemes": {
       "Bearer": {
         "type": "http",
-        "schema": "bearer",
+        "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
