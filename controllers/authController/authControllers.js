@@ -25,7 +25,7 @@ const registerUsers = async (req, res) => {
     email: normalizedEmail,
     password: passwordHash,
     avatarURL,
-    verify: true,
+    verify: false,
     verificationToken,
   });
 
