@@ -29,7 +29,8 @@ const updateDrink = async (req, res) => {
 
   const result = await WaterTracking.findOneAndUpdate(
     { owner, date },
-    { water_entries: arr }
+    { water_entries: arr },
+    { new: true }
   );
   res.status(200).send(result);
 };
