@@ -25,6 +25,7 @@ const getWaterController = async (req, res) => {
       {
         count,
         percent: Math.round(percentage),
+        daily_limit,
       },
       { new: true }
     );
@@ -35,7 +36,7 @@ const getWaterController = async (req, res) => {
   const newWater = await WaterTracking.create({
     date: date,
     owner: id,
-    daily_limit,
+    daily_limit: 2000,
   });
   res.status(201).send(newWater);
 };
