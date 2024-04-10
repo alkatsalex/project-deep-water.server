@@ -20,10 +20,16 @@ const getWaterController = async (req, res) => {
       0
     );
     const percentage = (totalAmount / water.daily_limit) * 100;
-    water.count = count;
-    water.percent = Math.round(percentage);
+    const updatedWater = await WaterTracking.findByIdAndUpdate(
+      water.id,
+      {
+        count,
+        percent: Math.round(percentage),
+      },
+      { new: true }
+    );
 
-    return res.status(200).send(water);
+    return res.status(200).send(updatedWater);
   }
 
   const newWater = await WaterTracking.create({
