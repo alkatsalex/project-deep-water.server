@@ -39,6 +39,7 @@ const registerUsers = async (req, res) => {
 
   res.status(201).send({
     message: "Registration successfully, check your email to verify",
+    verificationToken,
   });
 };
 
