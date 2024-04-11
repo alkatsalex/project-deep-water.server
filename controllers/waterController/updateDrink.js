@@ -17,7 +17,6 @@ const updateDrink = async (req, res) => {
   if (index === -1) {
     return null;
   }
-  const findTime = arr.find((option) => option.time === time);
 
   const updatedDrink = { time, amount, _id: id };
 
