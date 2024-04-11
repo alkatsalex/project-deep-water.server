@@ -19,10 +19,6 @@ const updateDrink = async (req, res) => {
   }
   const findTime = arr.find((option) => option.time === time);
 
-  if (findTime) {
-    throw HttpError(409, "Time in use");
-  }
-
   const updatedDrink = { time, amount, _id: id };
 
   arr[index] = updatedDrink;
