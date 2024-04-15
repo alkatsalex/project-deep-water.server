@@ -15,8 +15,8 @@ const verifyEmailRepeat = async (req, res, next) => {
   const verificationEmail = {
     to: email,
     subject: "Verify email",
-    html: `<a target="_blank" href="https://denys90.github.io/runners_of_code__frontend/verify/${verificationToken}"> Click to verify </a>`,
-    text: `To confirm you registration please open the link href="https://denys90.github.io/runners_of_code__frontend/verify/${verificationToken}"`,
+    html: `<a target="_blank" href="https://denys90.github.io/tracker-of-water-frontend/verify/${verificationToken}"> Click to verify </a>`,
+    text: `To confirm you registration please open the link href="https://denys90.github.io/tracker-of-water-frontend/verify/${verificationToken}"`,
   };
 
   await sendEmail(verificationEmail);
