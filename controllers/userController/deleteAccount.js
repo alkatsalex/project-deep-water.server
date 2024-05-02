@@ -4,13 +4,10 @@ import { HttpError, sendEmail } from "../../helpers/index.js";
 import { deleteImgFromCloudinary } from "../../helpers/deleteAvatar.js";
 const deleteAccount = async (req, res) => {
   const { id } = res.user;
-  // const { email } = req.query;
-  const { email } = res.user;
+  const { email } = req.query;
+
   const user = await User.findById(id);
-  // console.log(email);
-  // const email = user.email;
-  console.log(id);
-  console.log(email);
+
   if (user === null) {
     throw HttpError(404, "User not found");
   }
