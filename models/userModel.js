@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Verify token is required"],
     },
+    generateDeleteToken: {
+      type: String,
+      default: null,
+    },
     gender: {
       type: String,
       enum: ["Woman", "Man"],
