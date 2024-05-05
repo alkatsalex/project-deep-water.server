@@ -12,6 +12,7 @@ import {
   updateInfo,
   getUserInfo,
   deleteAccount,
+  deleteAccSendMail,
 } from "../controllers/userController/index.js";
 import { auth, validateBody, upload } from "../middleware/index.js";
 import { emailSchema, userAuth } from "../schemas/userAuth.js";
@@ -41,6 +42,11 @@ authRouter.patch(
 );
 authRouter.patch("/info", auth, ctrlWrapper(updateInfo));
 authRouter.get("/current", auth, ctrlWrapper(getCurrent));
-authRouter.delete("/delete", auth, ctrlWrapper(deleteAccount));
+authRouter.get("/delete", auth, ctrlWrapper(deleteAccSendMail));
+authRouter.delete(
+  "/delete/:generateDeleteToken",
+  auth,
+  ctrlWrapper(deleteAccount)
+);
 
 export default authRouter;
